@@ -86,6 +86,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="Save"
+        android:onClick="saveButtonClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/round_save_24" />

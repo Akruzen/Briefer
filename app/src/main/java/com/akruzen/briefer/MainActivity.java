@@ -1,13 +1,21 @@
 package com.akruzen.briefer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     TinyDB tinyDB;
     ListView titleListView;
+    ArrayList<String> titleList, contentList;
+    ArrayAdapter<String> titleArrayAdapter;
 
     public void onFABClicked (View view) {
         List<String> titleList = tinyDB.getListString(Constants.getTitleListKey());
@@ -27,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
         Log.i("My Logger", "contentList:" + contentList.toString());
         Intent intent = new Intent(this, AddContentActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh the list view when activity is resumed
+        populateListView();
+        titleArrayAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -42,13 +60,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
-        ArrayList<String> titleList = tinyDB.getListString(Constants.getTitleListKey());
+        titleList = tinyDB.getListString(Constants.getTitleListKey());
+        contentList = tinyDB.getListString(Constants.getContentListKey());
         if (!titleList.isEmpty()) {
             // Create an ArrayAdapter to display the ArrayList elements in the ListView
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, titleList);
+            titleArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, titleList);
             // Set the adapter to the titleListView
-            titleListView.setAdapter(arrayAdapter);
+            titleListView.setAdapter(titleArrayAdapter);
+            titleListView.setOnItemLongClickListener((parent, view, position, id) -> {
+                // Display the delete confirmation dialog
+                showMaterialDialog(position, this, "Delete", "Are you sure you want to delete " + titleList.get(position) + "?");
+                return true; // Returning true here means we have consumed the event and no further click events will be fired.
+            });
         }
     }
+
+    private MaterialAlertDialogBuilder showMaterialDialog (int position, Context context, String title, String content) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+        builder.setTitle(title);
+        builder.setMessage(content);
+        builder.setPositiveButton("Delete", (dialog, which) -> {
+            titleList.remove(position);
+            contentList.remove(position);
+            tinyDB.putListString(Constants.getTitleListKey(), titleList);
+            tinyDB.putListString(Constants.getContentListKey(), contentList);
+            Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            // Refresh the list view
+            titleArrayAdapter.notifyDataSetChanged();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        builder.show();
+        return builder;
+    }
+
 
 }

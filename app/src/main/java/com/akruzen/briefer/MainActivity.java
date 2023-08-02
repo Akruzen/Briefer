@@ -1,16 +1,12 @@
 package com.akruzen.briefer;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,7 +15,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import Constants.Constants;
 
@@ -37,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
         Log.i("My Logger", "contentList:" + contentList.toString());
         Intent intent = new Intent(this, AddContentActivity.class);
         startActivity(intent);
+    }
+
+    public void infoButtonClicked (View view) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        builder.setTitle("About");
+        builder.setMessage(getString(R.string.about_app));
+        builder.setNegativeButton("Dismiss", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        builder.show();
     }
 
     @Override
@@ -69,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
             titleListView.setAdapter(titleArrayAdapter);
             titleListView.setOnItemLongClickListener((parent, view, position, id) -> {
                 // Display the delete confirmation dialog
-                showMaterialDialog(position, this, "Delete", "Are you sure you want to delete " + titleList.get(position) + "?");
+                showDeleteMaterialDialog(position, this, "Delete", "Are you sure you want to delete " + titleList.get(position) + "?");
                 return true; // Returning true here means we have consumed the event and no further click events will be fired.
             });
         }
     }
 
-    private MaterialAlertDialogBuilder showMaterialDialog (int position, Context context, String title, String content) {
+    private void showDeleteMaterialDialog(int position, Context context, String title, String content) {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
         builder.setTitle(title);
         builder.setMessage(content);
@@ -93,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
         });
         builder.show();
-        return builder;
     }
 
 

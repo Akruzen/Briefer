@@ -72,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
             titleArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, titleList);
             // Set the adapter to the titleListView
             titleListView.setAdapter(titleArrayAdapter);
+            titleListView.setOnItemClickListener((parent, view, position, id) -> {
+                Intent intent = new Intent(this, ChatActivity.class);
+                intent.putExtra("title", titleList.get(position));
+                intent.putExtra("content", contentList.get(position));
+                startActivity(intent);
+            });
             titleListView.setOnItemLongClickListener((parent, view, position, id) -> {
                 // Display the delete confirmation dialog
                 showDeleteMaterialDialog(position, this, "Delete", "Are you sure you want to delete " + titleList.get(position) + "?");

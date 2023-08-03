@@ -2,4 +2,16 @@
     <string name="app_name">Briefer</string>
     <string name="about_app">A demo application based on TensorFlow\'s BERT to perform NLP operations on runtime contents.
     This app runs completely offline.\n\n\nDesigned and Developed by:\nOmkar Phadke\n\nSpecial Thanks to:\nAtharva Yeola</string>
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dictum vulputate diam, non mattis nunc tristique eu.
+        Aliquam nisl ex, condimentum non consectetur vitae, sodales sit amet massa. Pellentesque efficitur leo ut neque
+        iaculis blandit a ac velit. Donec commodo vel mi quis posuere. Maecenas in felis vitae nibh laoreet pulvinar non ac
+        velit. Sed feugiat ut sem in pulvinar. Vestibulum mattis euismod felis, in gravida leo. Phasellus cursus risus a augue
+        gravida molestie. Mauris congue et urna vitae eleifend. Aliquam magna massa, placerat eu felis vel, feugiat semper metus.
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean egestas justo ante.
+        Nunc at augue vitae nibh malesuada finibus vel quis turpis. Morbi a facilisis nisi. Suspendisse porttitor elit sit amet
+        velit rutrum, interdum semper dolor placerat. Maecenas eget lacus lectus. In at massa volutpat, faucibus dui sed, imperdiet
+        libero. Aenean sed metus vitae diam tempor imperdiet non sed purus. Nullam at neque pellentesque, placerat mi in, eleifend
+        nulla. Pellentesque mollis ligula at aliquet vulputate.
+    </string>
 </resources>

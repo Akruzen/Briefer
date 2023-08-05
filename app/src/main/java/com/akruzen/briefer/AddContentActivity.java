@@ -1,3 +1,8 @@
+/*
+ * Code developed by Akruzen (Omkar Phadke)
+ * Connect with me on Github via https://github.com/Akruzen
+ * */
+
 package com.akruzen.briefer;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +15,6 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import Constants.Constants;
@@ -43,7 +47,7 @@ public class AddContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_content);
         // Find views by id
-        titleTextInput = findViewById(R.id.titleTextField);
+        titleTextInput = findViewById(R.id.questionTextField);
         contentTextInput = findViewById(R.id.contentTextField);
         // Object Creation
         tinyDB = new TinyDB(this);

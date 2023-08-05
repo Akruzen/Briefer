@@ -23,7 +23,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/titleTextField"
+        app:layout_constraintBottom_toTopOf="@+id/questionTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView">
@@ -100,7 +100,7 @@
     </ScrollView>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/titleTextField"
+        android:id="@+id/questionTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -113,7 +113,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/titleTextInput"
+            android:id="@+id/questionTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="50"
@@ -138,9 +138,10 @@
             android:text="Note: Results might not be accurate" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/askButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:text="Ask" />
     </LinearLayout>
 

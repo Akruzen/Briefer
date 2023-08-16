@@ -5,21 +5,36 @@
 
 package com.akruzen.briefer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class ChatActivity extends AppCompatActivity {
+import org.tensorflow.lite.task.text.qa.QaAnswer;
 
-    TextView titleTextView, contentTextView;
+import java.util.List;
+
+public class ChatActivity extends AppCompatActivity implements BertQaHelper.AnswererListener {
+
+    TextView titleTextView, contentTextView, resultTextView;
     TextInputEditText questionEditText;
     MaterialButton askButton;
+    BertQaHelper bertQaHelper;
+
+    public void askButtonTapped(View view) {
+        assert questionEditText.getText() != null; // Check already performed in text watcher
+        String question = questionEditText.getText().toString();
+        String content = contentTextView.getText().toString();
+        bertQaHelper.answer(content, question);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +44,11 @@ public class ChatActivity extends AppCompatActivity {
         titleTextView = findViewById(R.id.titleTextView);
         contentTextView = findViewById(R.id.contentTextView);
         questionEditText = findViewById(R.id.questionTextInput);
+        resultTextView = findViewById(R.id.resultTextView);
         askButton = findViewById(R.id.askButton);
+        // Initialize Objects
+        bertQaHelper = new BertQaHelper(this, 2, 0, this);
+        // bertQaHelper.initialize();
         // Method Calls
         setContentTextView();
         handleListeners();
@@ -63,4 +82,19 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onError(@NonNull String error) {
+        Toast.makeText(this, "Error: " + error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResults(List results, long inferenceTime) {
+        if (results != null && !results.isEmpty()) {
+            Toast.makeText(this, "Generation Success", Toast.LENGTH_SHORT).show();
+            QaAnswer firstAnswer = (QaAnswer) results.get(0);
+            resultTextView.setText(firstAnswer.text);
+        } else {
+            Toast.makeText(this, "Null result!", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

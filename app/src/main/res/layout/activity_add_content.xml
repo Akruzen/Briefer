@@ -42,8 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 android:hint="Enter Title"
-                app:counterMaxLength="20"
                 app:counterEnabled="true"
+                app:counterMaxLength="20"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -61,18 +61,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 android:hint="Enter Content"
-                app:counterMaxLength="700"
                 app:counterEnabled="true"
+                app:counterMaxLength="1500"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/contentTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="700"
+                    android:maxLength="1500"
                     android:singleLine="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                app:srcCompat="@drawable/add" />
 
         </LinearLayout>
     </ScrollView>

@@ -89,10 +89,11 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
 
     @Override
     public void onResults(List results, long inferenceTime) {
+        // Maintain the arguments here as it is since it ensures compatible argument types with Kotlin and Java both
         if (results != null && !results.isEmpty()) {
-            Toast.makeText(this, "Generation Success", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Generation Success", Toast.LENGTH_SHORT).show();
             QaAnswer firstAnswer = (QaAnswer) results.get(0);
-            resultTextView.setText(firstAnswer.text);
+            resultTextView.setText(String.format("\n%s\n", firstAnswer.text));
         } else {
             Toast.makeText(this, "Null result!", Toast.LENGTH_SHORT).show();
         }

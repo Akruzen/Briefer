@@ -107,7 +107,7 @@
         android:layout_marginHorizontal="16dp"
         android:hint="Enter a question"
         app:counterEnabled="true"
-        app:counterMaxLength="50"
+        app:counterMaxLength="100"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,9 +117,8 @@
             android:id="@+id/questionTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="50"
             android:inputType="textCapSentences"
-            android:singleLine="true" />
+            android:maxLength="100" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

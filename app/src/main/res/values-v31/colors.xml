@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dynamic_yellow">@color/material_dynamic_primary80</color>
+    <color name="dynamic_yellow_prim80">@color/material_dynamic_primary80</color>
+    <color name="dynamic_purple_prim50">@color/material_dynamic_primary50</color>
+    <color name="dynamic_purple_prim70">@color/material_dynamic_primary70</color>
+    <color name="dynamic_purple_prim80">@color/material_dynamic_primary80</color>
 </resources>

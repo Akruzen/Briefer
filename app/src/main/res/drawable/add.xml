@@ -11,7 +11,7 @@
       android:strokeLineCap="round"/>
   <path
       android:pathData="M0,30C0,28.9 0.9,28 2,28H61C62.1,28 63,28.9 63,30V93C63,96.87 59.87,100 56,100H7C3.13,100 0,96.87 0,93V30Z"
-      android:fillColor="@color/dynamic_yellow"/>
+      android:fillColor="@color/dynamic_yellow_prim80"/>
   <path
       android:pathData="M11.5,40L51.5,40A1.5,1.5 0,0 1,53 41.5L53,41.5A1.5,1.5 0,0 1,51.5 43L11.5,43A1.5,1.5 0,0 1,10 41.5L10,41.5A1.5,1.5 0,0 1,11.5 40z"
       android:fillColor="#37474F"/>

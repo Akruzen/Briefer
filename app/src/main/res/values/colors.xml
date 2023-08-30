@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="dynamic_yellow">#F5ECB8</color>
+    <color name="foreground">#000000</color>
+    <color name="background">#FFFFFF</color>
+    <!--Dynamic Colors-->
+    <color name="dynamic_yellow_prim80">#F5ECB8</color>
+    <color name="dynamic_purple_prim50">#555CFD</color>
+    <color name="dynamic_purple_prim70">#A8ABFF</color>
+    <color name="dynamic_purple_prim80">#C6C8FF</color>
 </resources>

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ListView titleListView;
     ArrayList<String> titleList, contentList;
     ArrayAdapter<String> titleArrayAdapter;
+    ScrollView scrollView;
 
     public void onFABClicked (View view) {
         List<String> titleList = tinyDB.getListString(Constants.getTitleListKey());
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         if (titleArrayAdapter != null) {
             titleArrayAdapter.notifyDataSetChanged();
         }
+        setScrollViewVisibility();
     }
 
     @Override
@@ -65,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Find views by id
         titleListView = findViewById(R.id.titleListView);
+        scrollView = findViewById(R.id.scrollView);
         // Object Creation
         tinyDB = new TinyDB(this);
         // Method Calls
-        populateListView();
+        populateListView(); // Keep this call first in onCreate as it initializes the list
+        setScrollViewVisibility();
     }
 
     private void populateListView() {
@@ -106,11 +111,21 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
             // Refresh the list view
             titleArrayAdapter.notifyDataSetChanged();
+            // Set Scroll View image
+            setScrollViewVisibility();
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> {
             dialog.dismiss();
         });
         builder.show();
+    }
+
+    private void setScrollViewVisibility() {
+        if (titleList.isEmpty()) {
+            scrollView.setVisibility(View.VISIBLE);
+        } else {
+            scrollView.setVisibility(View.GONE);
+        }
     }
 
 

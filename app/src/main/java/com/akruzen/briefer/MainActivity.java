@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         // Refresh the list view when activity is resumed
         populateListView();
-        titleArrayAdapter.notifyDataSetChanged();
+        if (titleArrayAdapter != null) {
+            titleArrayAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

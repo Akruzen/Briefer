@@ -25,8 +25,7 @@ To directly install the apk on your phone, you can check current releases and do
 
 Points to consider while installing:
 - Make sure you are using Android Oreo (8.0) or above
-- The APK file size is drastically large (around 130 MB) since the BERT language model is included inside the APK file which is around 100 MB.
-- The APK is of debug type, which further increases the app size.
+- The APK file size is drastically large (around 175 MB) since the BERT language model is included inside the APK file which is around 100 MB.
 
 #### For developers:
 To open and run the Android Application, you will need to install [Android Studio](<https://developer.android.com/studio>) or any other supported IDE.

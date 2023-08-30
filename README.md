@@ -5,6 +5,11 @@ An Android application based on TensorFlow's BERT to perform NLP operations on r
 
 Google released [BERT](<https://en.wikipedia.org/wiki/BERT_(language_model)>) (Bidirectional Encoder Representations from Transformers) in 2018 aiming for high performance lightweight Natural Language Processing for processors having limited resources such as those of smartphones. In 2022, Google launched a [demo application](<https://github.com/tensorflow/examples/tree/master/lite/examples/bert_qa/android>) on GitHub for showcasing BERT's usage on Android smartphones. However, the app was made in Kotlin and had a limited functionality. Hence I decided to use the same BERT technology used in the app but make it more user friendly and improve the features to make the app actually usable.
 
+## Features
+- Dynamically add/delete new topic of interest
+- View past topics
+- No need of internet connection
+- Follows Google's latest Material You guidelines with dynamic color themeing
 
 
 ## Screenshots
@@ -19,7 +24,8 @@ About App             |  Adding content  |  List of previous topics  |  Asking q
 To directly install the apk on your phone, you can check current releases and download the apk file from [release section](<https://github.com/Akruzen/Briefer/releases>).
 
 Points to consider while installing:
-- The APK file size is drastically large (around 176 MB) since the BERT language model is included inside the APK file which is around 100 MB.
+- Make sure you are using Android Oreo (8.0) or above
+- The APK file size is drastically large (around 130 MB) since the BERT language model is included inside the APK file which is around 100 MB.
 - The APK is of debug type, which further increases the app size.
 
 #### For developers:
@@ -27,7 +33,7 @@ To open and run the Android Application, you will need to install [Android Studi
 Then clone this repository using
 
 ```bash
-  git clone https://github.com/Akruzen/Checklance
+  git clone https://github.com/Akruzen/Briefer
 ```
 
 This project makes use of both Java and Kotlin for its execution. Hence, if you intend to use this in your own project, make sure you install Kotlin dependency:

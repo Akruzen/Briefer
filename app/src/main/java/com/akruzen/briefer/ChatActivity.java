@@ -22,6 +22,8 @@ import org.tensorflow.lite.task.text.qa.QaAnswer;
 
 import java.util.List;
 
+import Constants.Methods;
+
 public class ChatActivity extends AppCompatActivity implements BertQaHelper.AnswererListener {
 
     TextView titleTextView, contentTextView, resultTextView;
@@ -91,6 +93,8 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
     public void onResults(List results, long inferenceTime) {
         // Maintain the arguments here as it is since it ensures compatible argument types with Kotlin and Java both
         if (results != null && !results.isEmpty()) {
+            // Answer was generated successfully, hide the keyboard
+            Methods.hideKeyboard(this);
             // Toast.makeText(this, "Generation Success", Toast.LENGTH_SHORT).show();
             QaAnswer firstAnswer = (QaAnswer) results.get(0);
             resultTextView.setText(String.format("\n%s\n", firstAnswer.text));

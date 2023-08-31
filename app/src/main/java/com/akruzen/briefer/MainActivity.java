@@ -6,7 +6,9 @@
 package com.akruzen.briefer;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         builder.setTitle("About");
         builder.setMessage(getString(R.string.about_app));
+        builder.setPositiveButton("View on GitHub", (dialog, which) -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Akruzen/Briefer"));
+            startActivity(browserIntent);
+        });
         builder.setNegativeButton("Dismiss", (dialog, which) -> {
             dialog.dismiss();
         });

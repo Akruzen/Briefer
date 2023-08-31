@@ -47,6 +47,10 @@ Also, you will need to add Tensorflow Lite libraries in your build.gradle file:
   implementation 'org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4'
   implementation 'org.tensorflow:tensorflow-lite-gpu:2.13.0'
 ```
+## License
+
+This program is open source under the GNU General Public License terms (GPLv3). For more details, please refer to the [LICENSE](<https://github.com/Akruzen/Briefer/blob/master/LICENSE>) in root directory.
+
 ## Feedback
 
 If you have any feedback, you can reach me on [Discord](<https://discordapp.com/users/akruzen#2652>).

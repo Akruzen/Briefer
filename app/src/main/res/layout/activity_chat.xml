@@ -81,6 +81,14 @@
                 android:text="Result"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:text="Select the text to copy results"
+                android:textSize="14sp" />
+
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
@@ -89,10 +97,11 @@
 
                 <TextView
                     android:id="@+id/resultTextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="\nQuery results will be displayed here.\n"
+                    android:textIsSelectable="true"
                     android:textSize="14sp" />
 
             </com.google.android.material.card.MaterialCardView>

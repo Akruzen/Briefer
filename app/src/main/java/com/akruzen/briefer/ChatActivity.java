@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.tensorflow.lite.task.text.qa.QaAnswer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Constants.Methods;
@@ -96,8 +97,14 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
             // Answer was generated successfully, hide the keyboard
             Methods.hideKeyboard(this);
             // Toast.makeText(this, "Generation Success", Toast.LENGTH_SHORT).show();
-            QaAnswer firstAnswer = (QaAnswer) results.get(0);
-            resultTextView.setText(String.format("\n%s\n", firstAnswer.text));
+            StringBuilder text = new StringBuilder("\n");
+            for (int i = 0; i < results.size(); i++) {
+                if (i > 5) break; // Display only top 5 results
+                QaAnswer answer = (QaAnswer) results.get(i);
+                // Don't add serial number if only one result
+                text.append(results.size() > 1 ? (i + 1) + ") " + answer.text + "\n" : answer.text + "\n");
+            }
+            resultTextView.setText(text);
         } else {
             Toast.makeText(this, "Null result!", Toast.LENGTH_SHORT).show();
         }

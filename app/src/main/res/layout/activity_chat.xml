@@ -106,6 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:hint="Enter a question"
+        app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="100"
         app:errorEnabled="true"

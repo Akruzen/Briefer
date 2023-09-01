@@ -57,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void helpButtonClicked (View view) {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

@@ -14,4 +14,26 @@
         libero. Aenean sed metus vitae diam tempor imperdiet non sed purus. Nullam at neque pellentesque, placerat mi in, eleifend
         nulla. Pellentesque mollis ligula at aliquet vulputate.
     </string>
+    <string name="about_bert">
+        Google released mobileBERT (Bidirectional Encoder Representations from Transformers) in 2018 aiming for high performance
+        lightweight Natural Language Processing for processors having limited resources such as those of smartphones. It is based
+        on Tensorflow Lite model which can be used to build a system that can answer users\' questions in natural language. In 2022,
+        Google launched an non-compiled proof-of-concept application on GitHub for showcasing BERT\'s usage on Android smartphones.
+        This app uses the same BERT technology under the hood.
+    </string>
+    <string name="how_to_use">
+        Tap the \"+\" button on home screen of the app to add a topic. Then, enter a suitable title for your text and paste/type in
+        your text content. Tap Save icon. The title of your text will appear in the home screen list. Tap the list item. You can now
+        ask questions based on the text content you had inserted.
+    </string>
+    <string name="points_to_consider">
+        Take a note of the following points while you ask questions:\n\n
+        1. The model cannot generate text on its own. Hence, the results will always be a part of the text you have provided.\n
+        2. Since text generation is not possible, questions like \"Summarize the paragraph\", \"Predict the outcome\" or any such
+        similar queries may produce garbage results.\n
+        3. From a list of results, top 5 results are shown, where first is most likely and 5th is least likely.\n
+        4. Try phrasing your questions in such a way, that they end in a question mark and start with a \"Wh\" type word.
+        For example, instead of asking \"Do you know the CEO of Google?\" or \"Tell me the name of CEO of Google.\", ask
+        \"Who is the CEO of Google?\"
+    </string>
 </resources>

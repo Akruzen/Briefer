@@ -37,6 +37,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
+        android:onClick="helpButtonClicked"
         android:text="Help"
         app:icon="@drawable/round_help_24"
         app:layout_constraintEnd_toStartOf="@id/settingsIconBtn"

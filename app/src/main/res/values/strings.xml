@@ -30,7 +30,7 @@
         Take a note of the following points while you ask questions:\n\n
         1. The model cannot generate text on its own. Hence, the results will always be a part of the text you have provided.\n
         2. Since text generation is not possible, questions like \"Summarize the paragraph\", \"Predict the outcome\" or any such
-        similar queries may produce garbage results.\n
+        similar queries will produce garbage results.\n
         3. From a list of results, top 5 results are shown, where first is most likely and 5th is least likely.\n
         4. Try phrasing your questions in such a way, that they end in a question mark and start with a \"Wh\" type word.
         For example, instead of asking \"Do you know the CEO of Google?\" or \"Tell me the name of CEO of Google.\", ask
@@ -38,7 +38,7 @@
     </string>
     <string name="threads_info">
         Threads are used to improve performance by allowing multiple operations to run simultaneously.
-        Increasing number of threads increases computing speed but also increases the load on the delegate.\n
+        Increasing number of threads might increase computing speed but it depends on number of cores the delegate has.\n
         A Delegate is a software component that can be used to accelerate the execution of TensorFlow Lite models.
         Delegates can be used to leverage on-device accelerators such as the GPU (Graphics Processing Unit), CPU (Central Processing
         Unit), and NNAPI (Android Neural Networks API).

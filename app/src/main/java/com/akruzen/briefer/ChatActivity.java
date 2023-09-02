@@ -27,7 +27,7 @@ import Constants.Methods;
 
 public class ChatActivity extends AppCompatActivity implements BertQaHelper.AnswererListener {
 
-    TextView titleTextView, contentTextView, resultTextView;
+    TextView titleTextView, contentTextView, resultTextView, noteTextView;
     TextInputEditText questionEditText;
     MaterialButton askButton;
     BertQaHelper bertQaHelper;
@@ -50,6 +50,7 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
         questionEditText = findViewById(R.id.questionTextInput);
         resultTextView = findViewById(R.id.resultTextView);
         askButton = findViewById(R.id.askButton);
+        noteTextView = findViewById(R.id.noteTextView);
         // Initialize Objects
         tinyDB = new TinyDB(this);
         initializeBertQaHelper(); // initialize bertQaHelper
@@ -62,8 +63,16 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
     private void setContentTextView() {
         String title = getIntent().getStringExtra("title");
         String content = getIntent().getStringExtra("content");
+        String delegateStr = tinyDB.getString(Constants.getDelegateKey());
         titleTextView.setText(title);
         contentTextView.setText(content);
+        String threadsCount = tinyDB.getString(Constants.getThreadCountKey());
+        delegateStr = (delegateStr.equals("0") ? "CPU" : (delegateStr.equals("1") ? "GPU" : "NNAPI"));
+        String setting = " Running " + threadsCount + " thread(s) on " + delegateStr;
+        // Only mention thread and delegate count if default value is changed
+        String note = "Note: Results might not be accurate."
+                + ((threadsCount.equals("2") && delegateStr.equals("CPU")) ? "" : setting);
+        noteTextView.setText(note);
     }
 
     private void handleListeners() {

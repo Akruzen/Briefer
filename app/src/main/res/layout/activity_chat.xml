@@ -141,12 +141,13 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/noteTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Note: Results might not be accurate" />
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:text="Note: Results might not be accurate." />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/askButton"

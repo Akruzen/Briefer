@@ -67,7 +67,8 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
         titleTextView.setText(title);
         contentTextView.setText(content);
         String threadsCount = tinyDB.getString(Constants.getThreadCountKey());
-        delegateStr = (delegateStr.equals("0") ? "CPU" : (delegateStr.equals("1") ? "GPU" : "NNAPI"));
+        threadsCount = threadsCount.trim().equals("") ? "2" : threadsCount;
+        delegateStr = (delegateStr.equals("2") ? "NNAPI" : (delegateStr.equals("1") ? "GPU" : "CPU"));
         String setting = " Running " + threadsCount + " thread(s) on " + delegateStr;
         // Only mention thread and delegate count if default value is changed
         String note = "Note: Results might not be accurate."

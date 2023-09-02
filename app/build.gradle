@@ -13,8 +13,8 @@ android {
         applicationId "com.akruzen.briefer"
         minSdk 26
         targetSdk 33
-        versionCode 3
-        versionName "v1.0.2-beta"
+        versionCode 4
+        versionName "v1.0.3-beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -96,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setThreadCountTextView() {
         String threadsStr = tinyDB.getString(Constants.getThreadCountKey());
+        if (threadsStr.trim().equals("")) threadsStr = "2";
         threadCountTextView.setText(threadsStr);
     }
 

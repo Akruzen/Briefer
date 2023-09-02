@@ -38,13 +38,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Font Size"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginVertical="8dp">
+                android:layout_marginVertical="8dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -98,9 +100,9 @@
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:layout_gravity="end"
-                        android:text="Apply"/>
+                        android:layout_marginTop="8dp"
+                        android:text="Apply" />
 
                 </LinearLayout>
 
@@ -111,7 +113,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginVertical="8dp"
-                android:background="?android:attr/listDivider" />
+                android:background="?android:attr/listDivider"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -153,10 +156,11 @@
                         android:layout_marginVertical="16dp">
 
                         <TextView
+                            android:id="@+id/statusTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
-                            android:text="Currently set to x threads.\nUsing CPU as a delegate." />
+                            android:text="Currently set to 2 thread(s).\nUsing CPU as a delegate." />
 
                     </com.google.android.material.card.MaterialCardView>
 
@@ -179,6 +183,7 @@
                             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:onClick="decreaseThreadCount"
                             app:icon="@drawable/round_arrow_circle_left_24" />
 
                         <com.google.android.material.card.MaterialCardView
@@ -189,6 +194,7 @@
                             android:layout_marginHorizontal="8dp">
 
                             <TextView
+                                android:id="@+id/threadCountTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="16dp"
@@ -201,6 +207,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
+                            android:onClick="increaseThreadCount"
                             app:icon="@drawable/round_arrow_circle_right_24" />
 
                     </LinearLayout>
@@ -251,11 +258,14 @@
                     </com.google.android.material.button.MaterialButtonToggleGroup>
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/resetButton"
+                        android:onClick="resetButtonTapped"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:layout_marginTop="8dp"
                         android:layout_gravity="end"
-                        android:text="Apply"/>
+                        android:text="Reset to default"/>
 
                 </LinearLayout>
 

@@ -20,9 +20,9 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.tensorflow.lite.task.text.qa.QaAnswer;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import Constants.Constants;
 import Constants.Methods;
 
 public class ChatActivity extends AppCompatActivity implements BertQaHelper.AnswererListener {
@@ -31,6 +31,7 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
     TextInputEditText questionEditText;
     MaterialButton askButton;
     BertQaHelper bertQaHelper;
+    TinyDB tinyDB;
 
     public void askButtonTapped(View view) {
         assert questionEditText.getText() != null; // Check already performed in text watcher
@@ -50,7 +51,8 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
         resultTextView = findViewById(R.id.resultTextView);
         askButton = findViewById(R.id.askButton);
         // Initialize Objects
-        bertQaHelper = new BertQaHelper(this, 2, 0, this);
+        tinyDB = new TinyDB(this);
+        initializeBertQaHelper(); // initialize bertQaHelper
         // bertQaHelper.initialize();
         // Method Calls
         setContentTextView();
@@ -107,6 +109,17 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
             resultTextView.setText(text);
         } else {
             Toast.makeText(this, "Null result!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initializeBertQaHelper() {
+        String threadCount = tinyDB.getString(Constants.getThreadCountKey());
+        String delegate = tinyDB.getString(Constants.getDelegateKey());
+        if (threadCount != null && !threadCount.isEmpty() && delegate != null && !delegate.isEmpty()) {
+            bertQaHelper = new BertQaHelper(this, Integer.parseInt(threadCount),
+                    Integer.parseInt(delegate), this);
+        } else {
+            bertQaHelper = new BertQaHelper(this, 2, 0, this);
         }
     }
 }

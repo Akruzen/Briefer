@@ -36,4 +36,12 @@
         For example, instead of asking \"Do you know the CEO of Google?\" or \"Tell me the name of CEO of Google.\", ask
         \"Who is the CEO of Google?\"
     </string>
+    <string name="threads_info">
+        Threads are used to improve performance by allowing multiple operations to run simultaneously.
+        Increasing number of threads increases computing speed but also increases the load on the delegate.\n
+        A Delegate is a software component that can be used to accelerate the execution of TensorFlow Lite models.
+        Delegates can be used to leverage on-device accelerators such as the GPU (Graphics Processing Unit), CPU (Central Processing
+        Unit), and NNAPI (Android Neural Networks API).
+    </string>
+    <string name="threads_warning">Warning: These settings usually don\'t require alterations. Only proceed if you know what you are doing.</string>
 </resources>

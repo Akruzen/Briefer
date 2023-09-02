@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void settingsButtonClicked (View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

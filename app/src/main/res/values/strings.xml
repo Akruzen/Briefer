@@ -44,4 +44,9 @@
         Unit), and NNAPI (Android Neural Networks API).
     </string>
     <string name="threads_warning">Warning: These settings usually don\'t require alterations. Only proceed if you know what you are doing.</string>
+    <string name="about_app_detail">You\'ll need to type in some sentences, and then you can ask questions to get shorter
+        answers from those sentences. Remember, the answers will need to be present in those sentences. This is useful for storing useful information
+        like your identity number, name of your favourite vendor or perhaps where did you park your car before you went to that
+        shop you were trying to go in a while. This way, unlike other apps, you won\'t
+        need to search for exact words. Just ask as if you would ask a person! 😃</string>
 </resources>

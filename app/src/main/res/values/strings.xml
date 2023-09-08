@@ -49,4 +49,6 @@
         like your identity number, name of your favourite vendor or perhaps where did you park your car before you went to that
         shop you were trying to go in a while. This way, unlike other apps, you won\'t
         need to search for exact words. Just ask as if you would ask a person! 😃</string>
+    <string name="shortcut_name">Brief It</string>
+    <string name="shortcut_disabled">Not available</string>
 </resources>

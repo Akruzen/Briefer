@@ -13,6 +13,22 @@
         android:theme="@style/Theme.Briefer"
         tools:targetApi="31">
         <activity
+            android:name=".QuickChatActivity"
+            android:exported="true"
+            android:label="Ask Briefer"
+            android:theme="@style/ChatDialog">
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:value=""/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="text/plain"/>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
@@ -27,6 +43,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

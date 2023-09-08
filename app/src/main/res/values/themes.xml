@@ -12,4 +12,10 @@
     </style>
 
     <style name="Theme.Briefer" parent="Base.Theme.Briefer" />
+
+    <style name="ChatDialog" parent="Theme.Material3.DayNight.Dialog.MinWidth">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 </resources>

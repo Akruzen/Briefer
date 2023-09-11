@@ -7,6 +7,7 @@ package com.akruzen.briefer;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
@@ -109,16 +110,16 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
             // Answer was generated successfully, hide the keyboard
             Methods.hideKeyboard(this);
             // Toast.makeText(this, "Generation Success", Toast.LENGTH_SHORT).show();
-            StringBuilder text = new StringBuilder("\n");
+            StringBuilder text = new StringBuilder("<br>");
             for (int i = 0; i < results.size(); i++) {
                 if (i > 5) break; // Display only top 5 results
                 QaAnswer answer = (QaAnswer) results.get(i);
                 // Remove blank spaces, new lines and carriage returns from the answer
                 String ans = answer.text.trim().replace("\n", " ").replace("\r", " ");
-                // Don't add serial number if only one result
-                text.append(results.size() > 1 ? (i + 1) + ") " + answer.text + "\n" : answer.text + "\n");
+                // Don't add serial number if only one result, make serial number bold
+                text.append(results.size() > 1 ? "<b>" + (i + 1) + ") " + "</b>" + ans + "<br>" : answer.text + "<br>");
             }
-            resultTextView.setText(text);
+            resultTextView.setText(Html.fromHtml(text.toString(), Html.FROM_HTML_MODE_COMPACT));
         } else {
             Toast.makeText(this, "Null result!", Toast.LENGTH_SHORT).show();
         }

@@ -163,7 +163,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             // Answer was generated successfully, hide the keyboard
             Methods.hideKeyboard(this);
             // Toast.makeText(this, "Generation Success", Toast.LENGTH_SHORT).show();
-            StringBuilder text = new StringBuilder("<br>");
+            StringBuilder text = new StringBuilder("Select the result text to copy.<br><br>");
             for (int i = 0; i < results.size(); i++) {
                 if (i > 5) break; // Display only top 5 results
                 QaAnswer answer = (QaAnswer) results.get(i);

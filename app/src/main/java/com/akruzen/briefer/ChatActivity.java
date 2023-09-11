@@ -113,6 +113,8 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
             for (int i = 0; i < results.size(); i++) {
                 if (i > 5) break; // Display only top 5 results
                 QaAnswer answer = (QaAnswer) results.get(i);
+                // Remove blank spaces, new lines and carriage returns from the answer
+                String ans = answer.text.trim().replace("\n", " ").replace("\r", " ");
                 // Don't add serial number if only one result
                 text.append(results.size() > 1 ? (i + 1) + ") " + answer.text + "\n" : answer.text + "\n");
             }

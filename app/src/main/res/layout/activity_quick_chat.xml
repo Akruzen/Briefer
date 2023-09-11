@@ -29,14 +29,15 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/searchInTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_margin="8dp"
-                android:text="Search in" />
+                android:text="Searching in all topics" />
 
             <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/delegateToggleButton"
+                android:id="@+id/searchToggleButton"
                 android:layout_marginBottom="8dp"
                 android:layout_gravity="center"
                 app:singleSelection="true"
@@ -46,19 +47,37 @@
 
                 <Button
                     style="?attr/materialButtonOutlinedStyle"
-                    android:id="@+id/cpuBtn"
+                    android:id="@+id/allTopicsBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="All topics" />
 
                 <Button
                     style="?attr/materialButtonOutlinedStyle"
-                    android:id="@+id/gpuBtn"
+                    android:id="@+id/selectedBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Selected" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/topicTextInputLayout"
+                android:visibility="gone"
+                tools:visibility="visible"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/topicAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select a topic"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -86,6 +105,7 @@
                         app:srcCompat="@drawable/flask"/>
 
                     <TextView
+                        android:id="@+id/quickResultTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -99,6 +119,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/quickAskTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Ask me"
@@ -108,12 +129,23 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/quickAskTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
                     android:maxLength="100" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:onClick="quickAskButtonTapped"
+                android:id="@+id/quickAskBtn"
+                android:enabled="false"
+                style="@style/Widget.Material3.Button"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ask"/>
 
         </LinearLayout>
     </ScrollView>

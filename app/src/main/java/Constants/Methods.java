@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.akruzen.briefer.BertQaHelper;
+
 public class Methods {
 
     public static void hideKeyboard(Activity activity) {

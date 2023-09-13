@@ -1,5 +1,6 @@
 package com.akruzen.briefer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -30,8 +31,11 @@ import Constants.Methods;
 public class QuickChatActivity extends AppCompatActivity implements BertQaHelper.AnswererListener{
 
     TinyDB tinyDB;
-    List<String> titleList = new ArrayList<>();
-    int currTopicIndex = -2; // -2 means some error, -1 means 'all topic' is selected, and 0 onwards is index of selected topic
+    static List<String> titleList = new ArrayList<>();
+    static int currTopicIndex = -3;
+    // -3 means some error, -2 means text is shared, -1 means 'all topic' is selected, and 0 onwards is index of selected topic
+    static boolean isExtraStringReceived = false;
+    static String extraText = "";
     TextInputLayout quickAskTextInputLayout, topicTextInputLayout;
     TextInputEditText quickAskTextInputEditText;
     AutoCompleteTextView topicAutoCompleteTextView;
@@ -41,11 +45,15 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
     BertQaHelper bertQaHelper;
 
     public void quickAskButtonTapped(View view) {
-        if (verifyChecks()) {
+        if (verifyChecks()) { // such as nothing is typed, etc.
             assert quickAskTextInputEditText.getText() != null; // Check already performed in text watcher
             String question = quickAskTextInputEditText.getText().toString();
             if (currTopicIndex == -1) { // Search in all topics
                 // Implement logic for searching in all topics.
+            }
+            else if (currTopicIndex == -2) {
+                // If text is shared
+                bertQaHelper.answer(extraText, question);
             }
             else if (currTopicIndex >= 0) { // Search in selected topic
                 // The currTopicIndex will hold index of which title to search in
@@ -77,25 +85,32 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
         tinyDB = new TinyDB(this);
         titleList = tinyDB.getListString(Constants.getTitleListKey());
         // Method calls
+        isExtraStringReceived = isExtraString();
         initialSetup();
         addOnClickListeners();
         initializeBertQaHelper();
     }
 
     private void initialSetup() {
-        if (titleList.isEmpty()) {
-            searchToggleGroup.setEnabled(false);
-            quickAskTextInputLayout.setEnabled(false);
-            quickAskButton.setEnabled(false);
-            quickResultTextView.setText("No content found! Open the app to add some content");
+        if (isExtraStringReceived) { // Directly ask questions on that
+            searchToggleGroup.setVisibility(View.GONE);
+            searchInTextView.setText("Searching in your shared text");
+            currTopicIndex = -2; // It means that text is shared. Check is performed in on click of ask button
         } else {
-            // Populate the topic in drop down
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, titleList);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            topicAutoCompleteTextView.setAdapter(adapter);
+            if (titleList.isEmpty()) {
+                searchToggleGroup.setEnabled(false);
+                quickAskTextInputLayout.setEnabled(false);
+                quickAskButton.setEnabled(false);
+                quickResultTextView.setText("No content found! Open the app to add some content");
+            } else {
+                // Populate the topic in drop down
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_1, titleList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                topicAutoCompleteTextView.setAdapter(adapter);
+            }
+            searchToggleGroup.check(R.id.allTopicsBtn);
         }
-        searchToggleGroup.check(R.id.allTopicsBtn);
     }
 
     private void addOnClickListeners() {
@@ -146,7 +161,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             }
             if (currTopicIndex < 0) flag = false; // It means user chose to select a topic but did not choose any
         }
-        if (currTopicIndex == -2) flag = false; // Straight away disallow since -2 value does not mean anything, it's a default value
+        if (currTopicIndex == -3) flag = false; // Straight away disallow since -2 value does not mean anything, it's a default value
         // Add more conditions here if needed
         return flag;
     }
@@ -188,6 +203,42 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
         } else {
             bertQaHelper = new BertQaHelper(this, 2, 0, this);
         }
+    }
+
+    private boolean isExtraString() {
+        // This method checks if quick chat was called by selecting/sharing the text
+        boolean flag = false;
+        try {
+            // This is for getting the text from the three dot action menu
+            CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+            if (text != null && !text.toString().trim().equals("")) {
+                if (text.toString().trim().length() < 300) {
+                    Toast.makeText(this, "Content should have at least 300 characters.", Toast.LENGTH_SHORT).show();
+                } else {
+                    flag = true;
+                    extraText = text.toString().trim();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!flag) { // If no three dot menu text is found, then try receiving from share sheet
+            try {
+                Intent receivedIntent = getIntent();
+                String receivedAction = receivedIntent.getAction();
+                String receivedType = receivedIntent.getType();
+                if (receivedAction.equals(Intent.ACTION_SEND) && receivedType.startsWith("text/")) {
+                    String receivedText = receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
+                    if (!receivedText.trim().equals("")) {
+                        flag = true;
+                        extraText = receivedText;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return flag;
     }
 
 }

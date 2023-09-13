@@ -27,7 +27,7 @@ public class AddContentActivity extends AppCompatActivity {
     public void saveButtonClicked(View view) {
         String title = Objects.requireNonNull(titleTextInput.getEditText()).getText().toString();
         String content = Objects.requireNonNull(contentTextInput.getEditText()).getText().toString();
-        if (title.length() > 1 && content.length() > 300) {
+        if (title.length() > 1 && content.trim().length() > 300) {
             ArrayList<String> titleList = tinyDB.getListString(Constants.getTitleListKey());
             titleList.add(title);
             ArrayList<String> contentList = tinyDB.getListString(Constants.getContentListKey());

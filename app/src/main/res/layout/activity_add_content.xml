@@ -50,6 +50,7 @@
                     android:id="@+id/questionTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
                     android:maxLength="20"
                     android:singleLine="true" />
 
@@ -69,6 +70,7 @@
                     android:id="@+id/contentTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
                     android:maxLength="1500"
                     android:singleLine="false" />
 

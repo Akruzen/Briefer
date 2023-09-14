@@ -63,8 +63,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/topicTextInputLayout"
-                android:visibility="gone"
-                tools:visibility="visible"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_marginBottom="8dp"
                 android:layout_width="match_parent"

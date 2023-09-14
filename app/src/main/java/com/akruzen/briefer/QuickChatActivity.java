@@ -50,6 +50,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             String question = quickAskTextInputEditText.getText().toString();
             if (currTopicIndex == -1) { // Search in all topics
                 // Implement logic for searching in all topics.
+                Toast.makeText(this, "This feature is still work in progress!", Toast.LENGTH_SHORT).show();
             }
             else if (currTopicIndex == -2) {
                 // If text is shared
@@ -109,7 +110,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 topicAutoCompleteTextView.setAdapter(adapter);
             }
-            searchToggleGroup.check(R.id.allTopicsBtn);
+            searchToggleGroup.check(R.id.selectedBtn);
         }
     }
 
@@ -118,6 +119,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             if (isChecked) {
                 if (checkedId == R.id.selectedBtn) {
                     // Let the user decide which topic to select
+                    quickAskTextInputEditText.setEnabled(false);
                     String currTopic = topicAutoCompleteTextView.getText().toString();
                     if (!currTopic.trim().equals("")) {
                         // Toggling to the segmented button retains drop down value, hence check is necessary
@@ -126,9 +128,11 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
                     }
                     topicTextInputLayout.setVisibility(View.VISIBLE);
                 } else {
+                    Toast.makeText(this, "This feature is still work in progress!", Toast.LENGTH_SHORT).show();
                     currTopicIndex = -1; // -1 means all topics should be searched in
                     topicTextInputLayout.setVisibility(View.GONE);
-                    searchInTextView.setText("Searching in all topics");
+                    searchInTextView.setText("This feature is still work in progress!");
+                    quickAskTextInputEditText.setEnabled(false);
                 }
             }
         });
@@ -214,6 +218,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             if (text != null && !text.toString().trim().equals("")) {
                 if (text.toString().trim().length() < 300) {
                     Toast.makeText(this, "Content should have at least 300 characters.", Toast.LENGTH_SHORT).show();
+                    finish(); // Do not process text less than 300 characters
                 } else {
                     flag = true;
                     extraText = text.toString().trim();

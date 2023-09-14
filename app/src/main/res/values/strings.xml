@@ -51,4 +51,7 @@
         need to search for exact words. Just ask as if you would ask a person! 😃</string>
     <string name="shortcut_name">Brief It</string>
     <string name="shortcut_disabled">Not available</string>
+    <string name="character_limit">You can set a safety character limit to your text. This will ensure that your phone will process only
+    so much words that it can handle. This also means that any documents you feed will be split into pieces, with each piece having your set
+    number of characters. You can either let the app choose the best limit for you or you can set it manually. The default limit is 5000 characters.</string>
 </resources>

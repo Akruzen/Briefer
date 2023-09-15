@@ -4,19 +4,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.slider.Slider;
 
 import Constants.Constants;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    TextView threadCountTextView, statusTextView;
+    TextView threadCountTextView, statusTextView, charLimitTextView;
     TinyDB tinyDB;
     MaterialButtonToggleGroup delegateToggleGroup;
     MaterialButton resetButton;
+    Slider charLimitSlider;
 
     public void increaseThreadCount(View view) {
         if (Integer.parseInt(threadCountTextView.getText().toString()) < 10) {
@@ -42,6 +45,12 @@ public class SettingsActivity extends AppCompatActivity {
         updateStatusTextView();
     }
 
+    public void resetCharLimit(View view) {
+        String txt = "Limiting to 5000 characters";
+        charLimitTextView.setText(txt);
+        charLimitSlider.setValue(5000);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +62,13 @@ public class SettingsActivity extends AppCompatActivity {
         threadCountTextView = findViewById(R.id.threadCountTextView);
         delegateToggleGroup = findViewById(R.id.delegateToggleButton);
         resetButton = findViewById(R.id.resetButton);
+        charLimitSlider = findViewById(R.id.charLimitSlider);
+        charLimitTextView = findViewById(R.id.charLimitTextView);
         // Method Calls
         updateToggleButtonGroup();
         setOnClickListeners();
         setThreadCountTextView();
+        setCharLimit();
         updateStatusTextView(); // Status text view should be the last to be called
 
     }
@@ -107,5 +119,18 @@ public class SettingsActivity extends AppCompatActivity {
                 updateStatusTextView();
             }
         });
+        charLimitSlider.addOnChangeListener((slider, value, fromUser) -> {
+            String txt = "Limiting to " + String.format("%.0f", value) + " characters";
+            charLimitTextView.setText(txt);
+            tinyDB.putString(Constants.getCharLimitKey(), String.format("%.0f", value));
+        });
+    }
+
+    private void setCharLimit() {
+        String charLimit = tinyDB.getString(Constants.getCharLimitKey());
+        charLimit = charLimit.equals("") ? "5000" : charLimit; // If not set by user, use default
+        String txt = "Limiting to " + charLimit + " characters";
+        charLimitTextView.setText(txt);
+        charLimitSlider.setValue(Float.parseFloat(charLimit));
     }
 }

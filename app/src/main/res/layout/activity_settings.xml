@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:valueFrom="2000.0"
-                android:valueTo="40000.0"
+                android:valueTo="20000.0"
                 android:stepSize="1000"/>
 
             <TextView
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Limiting to 5000 characters"/>
+                android:text="Limiting to 4000 characters"/>
 
             <TextView
                 android:id="@+id/testTimeTextView"
@@ -175,13 +175,14 @@
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_weight="1"
                     android:text="Auto Set" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:onClick="resetCharLimit"
-                    android:layout_marginStart="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -191,6 +192,7 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.OutlinedButton"
+                android:onClick="testCharLimitPressed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Test selected limit" />

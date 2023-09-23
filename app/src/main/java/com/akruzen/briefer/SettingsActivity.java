@@ -2,7 +2,9 @@ package com.akruzen.briefer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,7 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.slider.Slider;
 
 import org.checkerframework.checker.units.qual.A;
@@ -38,6 +42,8 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
     MaterialButtonToggleGroup delegateToggleGroup;
     MaterialButton resetButton;
     Slider charLimitSlider;
+    LinearProgressIndicator precisionIndicator;
+    String charLimit;
     Activity activity;
 
     public void increaseThreadCount(View view) {
@@ -105,12 +111,14 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
         charLimitSlider = findViewById(R.id.charLimitSlider);
         charLimitTextView = findViewById(R.id.charLimitTextView);
         testTimeTextView = findViewById(R.id.testTimeTextView);
+        precisionIndicator = findViewById(R.id.precisionIndicator);
         // Method Calls
         updateToggleButtonGroup();
         setOnClickListeners();
         setThreadCountTextView();
         setCharLimit();
-        updateStatusTextView(); // Status text view should be the last to be called
+        setPrecision(); // Must be called AFTER charLimit
+        updateStatusTextView(); // Status text view should be the LAST to be called
 
     }
 
@@ -164,11 +172,12 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
             String txt = "Limiting to " + String.format("%.0f", value) + " characters";
             charLimitTextView.setText(txt);
             tinyDB.putString(Constants.getCharLimitKey(), String.format("%.0f", value));
+            setPrecision();
         });
     }
 
     private void setCharLimit() {
-        String charLimit = tinyDB.getString(Constants.getCharLimitKey());
+        charLimit = tinyDB.getString(Constants.getCharLimitKey());
         charLimit = charLimit.equals("") ? "4000" : charLimit; // If not set by user, use default
         String txt = "Limiting to " + charLimit + " characters";
         charLimitTextView.setText(txt);
@@ -208,11 +217,13 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
     public void onResults(List results, long inferenceTime) {
         activity.runOnUiThread(() -> {
             if (results == null) {
+                String testTimeStr = "Test failed!";
                 testTimeTextView.setText("Excessive load, try reducing the character limit");
+                testTimeTextView.setText(testTimeStr);
             } else {
                 String testTimeStr = "";
                 testTimeTextView.setText("");
-                if ((int) charLimitSlider.getValue() > 5000) {
+                if ((int) charLimitSlider.getValue() > 8000) {
                     testTimeStr = "Test succeeded and took " + inferenceTime + " milliseconds.";
                     testTimeStr += "\nCharacter limit is too high, expect precision loss.";
                     testTimeTextView.setText(testTimeStr);
@@ -222,5 +233,47 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
                 }
             }
         });
+    }
+
+    private void setPrecision() {
+        int intCharLimit = Integer.parseInt(tinyDB.getString(Constants.getCharLimitKey()));
+        int precisionLevel = -1;
+        if (intCharLimit == 4000) { // default value
+            precisionLevel = 5;
+            precisionIndicator.setProgressCompat(80, true);
+        } else if (intCharLimit <= 2000) { // lowest value
+            precisionLevel = 7;
+            precisionIndicator.setProgressCompat(95, true);
+        } else if (intCharLimit < 4000) {
+            precisionLevel = 6;
+            precisionIndicator.setIndicatorColor(Color.parseColor("#44d28e"));
+            precisionIndicator.setProgressCompat(85, true);
+        } else if (intCharLimit <= 8000) {
+            precisionLevel = 4;
+            precisionIndicator.setProgressCompat(70, true);
+        } else if (intCharLimit <= 15000) {
+            precisionLevel = 3;
+            precisionIndicator.setProgressCompat(50, true);
+        } else if (intCharLimit <= 20000) {
+            precisionLevel = 2;
+            precisionIndicator.setProgressCompat(25, true);
+        } else {
+            precisionLevel = 1;
+            precisionIndicator.setProgressCompat(15, true);
+        }
+        setPrecisionColor(precisionLevel);
+    }
+
+    private void setPrecisionColor(int precisionLevel) {
+        if (DynamicColors.isDynamicColorAvailable()) {
+            precisionIndicator.setIndicatorColor(
+                    precisionLevel == 7 ? getResources().getColor(com.google.android.material.R.color.material_dynamic_primary30) :
+                            precisionLevel == 6 ? getResources().getColor(com.google.android.material.R.color.material_dynamic_primary40) :
+                                    precisionLevel == 5 ? getResources().getColor(com.google.android.material.R.color.material_dynamic_primary50) :
+                                            precisionLevel == 4 ? getResources().getColor(com.google.android.material.R.color.material_dynamic_neutral_variant60) :
+                                                    precisionLevel == 3 ? getResources().getColor(com.google.android.material.R.color.material_dynamic_neutral60) :
+                                                            Color.parseColor("#B00020")
+            );
+        }
     }
 }

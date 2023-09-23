@@ -166,6 +166,21 @@
                 android:layout_gravity="center"
                 android:text=""/>
 
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/precisionIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:progress="80"
+                app:trackThickness="12dp"
+                app:trackCornerRadius="32dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precision Level"
+                android:paddingHorizontal="16dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

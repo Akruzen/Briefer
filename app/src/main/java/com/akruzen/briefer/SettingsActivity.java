@@ -210,7 +210,7 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
 
     @Override
     public void onError(@NonNull String error) {
-        activity.runOnUiThread(() -> Toast.makeText(activity, "Error!! I am here!", Toast.LENGTH_SHORT).show());
+        activity.runOnUiThread(() -> Toast.makeText(activity, "Settings not supported!", Toast.LENGTH_SHORT).show());
     }
 
     @Override

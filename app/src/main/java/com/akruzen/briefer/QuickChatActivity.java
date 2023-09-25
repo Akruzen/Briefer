@@ -95,6 +95,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
     private void initialSetup() {
         if (isExtraStringReceived) { // Directly ask questions on that
             searchToggleGroup.setVisibility(View.GONE);
+            topicTextInputLayout.setVisibility(View.GONE);
             searchInTextView.setText("Searching in your shared text");
             currTopicIndex = -2; // It means that text is shared. Check is performed in on click of ask button
         } else {
@@ -127,6 +128,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
                         searchInTextView.setText(setter);
                     }
                     topicTextInputLayout.setVisibility(View.VISIBLE);
+                    quickAskTextInputEditText.setEnabled(true);
                 } else {
                     Toast.makeText(this, "This feature is still work in progress!", Toast.LENGTH_SHORT).show();
                     currTopicIndex = -1; // -1 means all topics should be searched in
@@ -221,7 +223,13 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
                     finish(); // Do not process text less than 300 characters
                 } else {
                     flag = true;
-                    extraText = text.toString().trim();
+                    int charLimit = Integer.parseInt(tinyDB.getString(Constants.getCharLimitKey()));
+                    if (text.toString().trim().length() > charLimit) {
+                        Toast.makeText(this, "Trimming content to match character limit.", Toast.LENGTH_SHORT).show();
+                        extraText = text.toString().trim().substring(0, charLimit);
+                    } else {
+                        extraText = text.toString().trim();
+                    }
                 }
             }
         } catch (Exception e) {

@@ -31,6 +31,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/aboutIconBtn"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:onClick="settingsButtonClicked"
+        app:icon="@drawable/round_info_24"
+        app:layout_constraintEnd_toStartOf="@id/settingsIconBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/helpIconBtn"
         style="@style/Widget.Material3.Button.TonalButton.Icon"
         android:layout_width="wrap_content"
@@ -41,7 +53,7 @@
         android:onClick="helpButtonClicked"
         android:text="Help"
         app:icon="@drawable/round_help_24"
-        app:layout_constraintEnd_toStartOf="@id/settingsIconBtn"
+        app:layout_constraintEnd_toStartOf="@id/aboutIconBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView

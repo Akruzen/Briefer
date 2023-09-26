@@ -7,8 +7,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -25,6 +29,10 @@ public class AboutActivity extends AppCompatActivity {
         }
         // Else default behaviour will be to open linked in
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uriString)));
+    }
+
+    public void changeLogPressed(View view) {
+        showChangeLogBottomSheet();
     }
 
     @Override
@@ -47,5 +55,11 @@ public class AboutActivity extends AppCompatActivity {
         } finally {
             versionNameTextView.setText(version);
         }
+    }
+
+    private void showChangeLogBottomSheet() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.changelog_bottom_sheet);
+        bottomSheetDialog.show();
     }
 }

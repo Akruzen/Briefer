@@ -105,6 +105,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         style="@style/Widget.Material3.FloatingActionButton.Tertiary"
+        tools:visibility="visible"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

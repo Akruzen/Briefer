@@ -56,4 +56,7 @@
     number of characters. You can either let the app choose the best limit for you or you can set it manually. The default limit is 4000 characters.
     Remember, increasing character limit will allow you to enter more characters, but you will loose precision. Choose a balance which suits you.</string>
     <string name="oliver_twist_question">Who is called the father of electricity?</string>
+
+    <!--ChangeLog-->
+    <string name="changeLogs">v1.0--split--Initial Release</string>
 </resources>

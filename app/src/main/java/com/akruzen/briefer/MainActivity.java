@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void aboutButtonClicked (View view) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
+
     public void settingsButtonClicked (View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

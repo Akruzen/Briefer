@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:onClick="settingsButtonClicked"
+        android:onClick="aboutButtonClicked"
         app:icon="@drawable/round_info_24"
         app:layout_constraintEnd_toStartOf="@id/settingsIconBtn"
         app:layout_constraintTop_toTopOf="parent" />

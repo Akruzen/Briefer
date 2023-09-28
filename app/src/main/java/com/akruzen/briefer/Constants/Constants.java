@@ -3,7 +3,7 @@
  * Connect with me on Github via https://github.com/Akruzen
  * */
 
-package Constants;
+package com.akruzen.briefer.Constants;
 
 public class Constants {
 

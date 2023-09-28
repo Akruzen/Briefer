@@ -1,4 +1,4 @@
-package Constants;
+package com.akruzen.briefer.Constants;
 
 import android.app.Activity;
 import android.content.Context;

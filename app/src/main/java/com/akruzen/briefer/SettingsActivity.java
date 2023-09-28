@@ -1,20 +1,15 @@
 package com.akruzen.briefer;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,14 +20,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.slider.Slider;
 
-import org.checkerframework.checker.units.qual.A;
-import org.tensorflow.lite.task.text.qa.QaAnswer;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import Constants.Constants;
+import com.akruzen.briefer.Constants.Constants;
 
 public class SettingsActivity extends AppCompatActivity implements BertQaHelper.AnswererListener {
 

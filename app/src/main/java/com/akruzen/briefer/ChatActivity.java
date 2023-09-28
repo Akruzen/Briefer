@@ -23,8 +23,8 @@ import org.tensorflow.lite.task.text.qa.QaAnswer;
 
 import java.util.List;
 
-import Constants.Constants;
-import Constants.Methods;
+import com.akruzen.briefer.Constants.Constants;
+import com.akruzen.briefer.Constants.Methods;
 
 public class ChatActivity extends AppCompatActivity implements BertQaHelper.AnswererListener {
 

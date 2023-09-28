@@ -14,7 +14,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
+import com.akruzen.briefer.db.AppDatabase;
+import com.akruzen.briefer.db.Topic;
+import com.akruzen.briefer.db.TopicDao;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,13 +29,15 @@ import org.tensorflow.lite.task.text.qa.QaAnswer;
 import java.util.ArrayList;
 import java.util.List;
 
-import Constants.Constants;
-import Constants.Methods;
+import com.akruzen.briefer.Constants.Constants;
+import com.akruzen.briefer.Constants.Methods;
 
 public class QuickChatActivity extends AppCompatActivity implements BertQaHelper.AnswererListener{
 
     TinyDB tinyDB;
-    static List<String> titleList = new ArrayList<>();
+    AppDatabase db;
+    TopicDao topicDao;
+    List<Topic> topics;
     static int currTopicIndex = -3;
     // -3 means some error, -2 means text is shared, -1 means 'all topic' is selected, and 0 onwards is index of selected topic
     static boolean isExtraStringReceived = false;
@@ -82,9 +88,11 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
         topicAutoCompleteTextView = findViewById(R.id.topicAutoCompleteTextView);
         searchInTextView = findViewById(R.id.searchInTextView);
         quickAskTextInputEditText = findViewById(R.id.quickAskTextInputEditText);
-        // Initialize Variables
+        // Initialize Objects
         tinyDB = new TinyDB(this);
-        titleList = tinyDB.getListString(Constants.getTitleListKey());
+        db = Room.databaseBuilder(this, AppDatabase.class, "TopicDatabase").allowMainThreadQueries().build();
+        topicDao = db.topicDao();
+        topics = topicDao.getAllTopics();
         // Method calls
         isExtraStringReceived = isExtraString();
         initialSetup();
@@ -99,13 +107,17 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             searchInTextView.setText("Searching in your shared text");
             currTopicIndex = -2; // It means that text is shared. Check is performed in on click of ask button
         } else {
-            if (titleList.isEmpty()) {
+            if (topics.isEmpty()) {
                 searchToggleGroup.setEnabled(false);
                 quickAskTextInputLayout.setEnabled(false);
                 quickAskButton.setEnabled(false);
                 quickResultTextView.setText("No content found! Open the app to add some content");
             } else {
                 // Populate the topic in drop down
+                List<String> titleList = new ArrayList<>();
+                for (Topic topic : topics) {
+                    titleList.add(topic.title);
+                }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                         android.R.layout.simple_list_item_1, titleList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -139,7 +151,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             }
         });
         topicAutoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
-            String selected = "Searching in \"" + titleList.get(position) + "\""; // Sequence of dropdown will be same as the title list
+            String selected = "Searching in \"" + topics.get(position).title + "\""; // Sequence of dropdown will be same as the title list
             searchInTextView.setText(selected);
             currTopicIndex = position;
         });

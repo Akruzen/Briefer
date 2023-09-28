@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -34,16 +33,13 @@ public class MainActivity extends AppCompatActivity {
     TinyDB tinyDB;
     AppDatabase db;
     TopicDao topicDao;
+    List<Topic> topicList;
     ListView titleListView;
     ArrayList<String> titleList, contentList;
     ArrayAdapter<String> titleArrayAdapter;
     ScrollView scrollView;
 
     public void onFABClicked (View view) {
-        // List<String> titleList = tinyDB.getListString(Constants.getTitleListKey());
-        // List<String> contentList = tinyDB.getListString(Constants.getContentListKey());
-        // Log.i("My Logger", "titleList:" + titleList.toString());
-        // Log.i("My Logger", "contentList:" + contentList.toString());
         Intent intent = new Intent(this, AddContentActivity.class);
         startActivity(intent);
     }
@@ -105,12 +101,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
-        List<Topic> topics = topicDao.getAllTopics();
-        // titleList = tinyDB.getListString(Constants.getTitleListKey());
-        // contentList = tinyDB.getListString(Constants.getContentListKey());
-        if (!topics.isEmpty()) {
+        topicList = topicDao.getAllTopics();
+        titleList = new ArrayList<>();
+        contentList = new ArrayList<>();
+        if (!topicList.isEmpty()) {
             // Generate titleList and contentList from topic object
-            for (Topic topic : topics) {
+            for (Topic topic : topicList) {
                 titleList.add(topic.title);
                 contentList.add(topic.content);
             }
@@ -126,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             });
             titleListView.setOnItemLongClickListener((parent, view, position, id) -> {
                 // Display the delete confirmation dialog
-                showDeleteMaterialDialog(topics.get(position), this, "Delete", "Are you sure you want to delete " + titleList.get(position) + "?");
+                showDeleteMaterialDialog(topicList.get(position), this, "Delete", "Are you sure you want to delete " + titleList.get(position) + "?");
                 return true; // Returning true here means we have consumed the event and no further click events will be fired.
             });
         }
@@ -140,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
             titleList.remove(topic.title);
             contentList.remove(topic.content);
             topicDao.deleteTopic(topic);
-            // tinyDB.putListString(Constants.getTitleListKey(), titleList);
-            // tinyDB.putListString(Constants.getContentListKey(), contentList);
             Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
             // Refresh the list view
@@ -156,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setScrollViewVisibility() {
-        if (titleList.isEmpty()) {
+        if (topicList.isEmpty()) {
             scrollView.setVisibility(View.VISIBLE);
         } else {
             scrollView.setVisibility(View.GONE);

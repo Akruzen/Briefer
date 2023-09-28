@@ -58,18 +58,12 @@ public class AddContentActivity extends AppCompatActivity {
                 topicDao.insertTopic(topic);
                 Log.i("Database", "titleList:" + topic.title);
                 Log.i("Database", "contentList:" + topic.content);
+                Toast.makeText(this, "Topic Added", Toast.LENGTH_SHORT).show();
                 finish();
             } catch (PackageManager.NameNotFoundException e) {
-                throw new RuntimeException(e);
-            } finally {
                 Toast.makeText(this, "Failed to add topic", Toast.LENGTH_SHORT).show();
+                throw new RuntimeException(e);
             }
-             /*ArrayList<String> titleList = tinyDB.getListString(Constants.getTitleListKey());
-             titleList.add(title);
-             ArrayList<String> contentList = tinyDB.getListString(Constants.getContentListKey());
-             contentList.add(content);
-             tinyDB.putListString(Constants.getTitleListKey(), titleList);
-             tinyDB.putListString(Constants.getContentListKey(), contentList);*/
         } else {
             Toast.makeText(this, "Data too short", Toast.LENGTH_SHORT).show();
         }
@@ -93,7 +87,8 @@ public class AddContentActivity extends AppCompatActivity {
     }
 
     private void setCharLimit() {
-        int charLimit = Integer.parseInt(tinyDB.getString(Constants.getCharLimitKey()));
+        String charLimitStr = tinyDB.getString(Constants.getCharLimitKey());
+        int charLimit = Integer.parseInt(charLimitStr.equals("") ? "4000" : charLimitStr);
         titleTextInput.setCounterMaxLength(charLimit);
         contentTextInput.setCounterMaxLength(charLimit);
         InputFilter[] filterArray = new InputFilter[1];

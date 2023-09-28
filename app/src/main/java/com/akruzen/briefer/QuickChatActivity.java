@@ -64,7 +64,7 @@ public class QuickChatActivity extends AppCompatActivity implements BertQaHelper
             }
             else if (currTopicIndex >= 0) { // Search in selected topic
                 // The currTopicIndex will hold index of which title to search in
-                String content = tinyDB.getListString(Constants.getContentListKey()).get(currTopicIndex);
+                String content = topics.get(currTopicIndex).content;
                 bertQaHelper.answer(content, question);
             }
             else {

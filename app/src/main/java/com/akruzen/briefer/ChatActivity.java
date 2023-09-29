@@ -41,6 +41,12 @@ public class ChatActivity extends AppCompatActivity implements BertQaHelper.Answ
         bertQaHelper.answer(content, question);
     }
 
+    public void copyTapped(View view) {
+        String content = contentTextView.getText().toString();
+        Methods.copyToClipBoard(content, this);
+        Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

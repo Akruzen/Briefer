@@ -35,12 +35,29 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/titleTextView2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contents"
-                android:textSize="20sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/titleTextView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Contents"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.IconButton"
+                    app:icon="@drawable/round_content_copy_24"
+                    android:onClick="copyTapped"
+                    android:gravity="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"

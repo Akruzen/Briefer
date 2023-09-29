@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             titleList.remove(topic.title);
             contentList.remove(topic.content);
             topicDao.deleteTopic(topic);
+            topicList.remove(topic);
             Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
             // Refresh the list view

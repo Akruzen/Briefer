@@ -45,16 +45,18 @@ public class AddContentActivity extends AppCompatActivity {
                 // Ready the required params
                 String currDateTime = new SimpleDateFormat("yyyyMMddHHmmss", Locale.UK).format(new Date());
                 PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                int version = pInfo.versionCode;
+                int appVersion = pInfo.versionCode;
                 int sdkVersion = Build.VERSION.SDK_INT;
 
                 // Create a db entry
-                Topic topic = new Topic(); // Primary key gets auto generated while creating object
-                topic.title = title;
+                Topic topic = new Topic(
+                        title, content, Topic.TYPE_PLAIN_TEXT, currDateTime, appVersion, sdkVersion
+                ); // Primary key 'uid' gets auto generated while creating object
+                /*topic.title = title;
                 topic.content = content;
                 topic.updateTimeStamp = currDateTime; // Time stamp will be the same as current time since object is getting created
-                topic.appVersion = version;
-                topic.sdkVersion = sdkVersion;
+                topic.appVersion = appVersion;
+                topic.sdkVersion = sdkVersion;*/
                 topicDao.insertTopic(topic);
                 Log.i("Database", "titleList:" + topic.title);
                 Log.i("Database", "contentList:" + topic.content);

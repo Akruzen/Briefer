@@ -5,6 +5,7 @@
 
 package com.akruzen.briefer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,9 +16,13 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.akruzen.briefer.Constants.Constants;
+import com.akruzen.briefer.Constants.Methods;
 import com.akruzen.briefer.db.AppDatabase;
 import com.akruzen.briefer.db.Topic;
 import com.akruzen.briefer.db.TopicDao;
@@ -25,8 +30,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.akruzen.briefer.Constants.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,8 +43,23 @@ public class MainActivity extends AppCompatActivity {
     ScrollView scrollView;
 
     public void onFABClicked (View view) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        builder.setView(R.layout.add_content_dialog);
+        builder.show();
+    }
+
+    public void addManuallyClicked(View view) {
         Intent intent = new Intent(this, AddContentActivity.class);
         startActivity(intent);
+    }
+
+    public void openFile(View view) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        // Set the MIME types to allow only PDF and TXT files
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, Constants.allowedFiles);
+        openFileLauncher.launch(intent);
     }
 
     public void infoButtonClicked (View view) {
@@ -158,5 +176,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private final ActivityResultLauncher<Intent> openFileLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    // Handle result here
+                    Intent data = result.getData();
+                    if (data != null) {
+                        Toast.makeText(this, "Data not null", Toast.LENGTH_SHORT).show();
+                        try {
+                            int fileType = Methods.getFileType(this, data.getData());
+                            if (fileType == Constants.FILE_TYPE_PDF) {
+                                Toast.makeText(this, "File is a PDF", Toast.LENGTH_SHORT).show();
+                            } else if (fileType == Constants.FILE_TYPE_TXT) {
+                                Toast.makeText(this, "File is a TXT", Toast.LENGTH_SHORT).show();
+                            } else if (fileType == Constants.FILE_TYPE_UNKNOWN) {
+                                Toast.makeText(this, "File is unknown", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(this, "Operation Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
 
 }

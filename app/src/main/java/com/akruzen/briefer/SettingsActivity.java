@@ -63,9 +63,9 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
     }
 
     public void resetCharLimit(View view) {
-        String txt = "Limiting to 4000 characters";
+        String txt = "Limiting to " + Constants.DEFAULT_CHAR_LIMIT + " characters";
         charLimitTextView.setText(txt);
-        charLimitSlider.setValue(4000);
+        charLimitSlider.setValue(Integer.parseInt(Constants.DEFAULT_CHAR_LIMIT));
     }
 
     public void testCharLimitPressed(View view) {
@@ -170,7 +170,7 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
 
     private void setCharLimit() {
         charLimit = tinyDB.getString(Constants.getCharLimitKey());
-        charLimit = charLimit.equals("") ? "4000" : charLimit; // If not set by user, use default
+        charLimit = charLimit.equals("") ? Constants.DEFAULT_CHAR_LIMIT : charLimit; // If not set by user, use default
         String txt = "Limiting to " + charLimit + " characters";
         charLimitTextView.setText(txt);
         charLimitSlider.setValue(Float.parseFloat(charLimit));
@@ -230,7 +230,7 @@ public class SettingsActivity extends AppCompatActivity implements BertQaHelper.
     private void setPrecision() {
         int intCharLimit = Integer.parseInt(tinyDB.getString(Constants.getCharLimitKey()));
         int precisionLevel = -1;
-        if (intCharLimit == 4000) { // default value
+        if (intCharLimit == Integer.parseInt(Constants.DEFAULT_CHAR_LIMIT)) { // default value
             precisionLevel = 5;
             precisionIndicator.setProgressCompat(80, true);
         } else if (intCharLimit <= 2000) { // lowest value

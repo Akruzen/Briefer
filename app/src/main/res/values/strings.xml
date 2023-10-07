@@ -56,7 +56,10 @@
     number of characters. You can either let the app choose the best limit for you or you can set it manually. The default limit is 4000 characters.
     Remember, increasing character limit will allow you to enter more characters, but you will loose precision. Choose a balance which suits you.</string>
     <string name="oliver_twist_question">Who is called the father of electricity?</string>
-
+    <string name="incorrect_file_warning">The file you have chosen is likely contain images instead of text. Please verify that the text inside is selectable.</string>
+    <string name="splitting_info">Splitting the file helps the app to process the data more easily and maintain the accuracy of answers.
+        So, when you will ask the app any question, it will generate answers for each split part. Each split part consists of specific
+        number of characters. You can change the character limit from settings.</string>
     <!--ChangeLog-->
     <string name="changeLogs">v1.0--split--Initial Release</string>
 </resources>

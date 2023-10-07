@@ -90,7 +90,7 @@ public class AddContentActivity extends AppCompatActivity {
 
     private void setCharLimit() {
         String charLimitStr = tinyDB.getString(Constants.getCharLimitKey());
-        int charLimit = Integer.parseInt(charLimitStr.equals("") ? "4000" : charLimitStr);
+        int charLimit = Integer.parseInt(charLimitStr.equals("") ? Constants.DEFAULT_CHAR_LIMIT : charLimitStr);
         contentTextInput.setCounterMaxLength(charLimit);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(charLimit);

@@ -13,6 +13,11 @@ public class Constants {
     public static final int FILE_TYPE_PDF = 1;
     public static final int FILE_TYPE_TXT = 2;
 
+    public static final String FILE_INTENT_EXTRA = "fileIntentExtra";
+    public static final String FILE_EXTENSION_INTENT_EXTRA = "fileExtensionExtra";
+
+    public static final String DEFAULT_CHAR_LIMIT = "4000";
+
     public static String getThreadCountKey() { return "threadCount"; }
     public static String getDelegateKey() { return "delegate"; }
     public static String getCharLimitKey() { return "charLimit"; }

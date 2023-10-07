@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -41,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> titleList, contentList;
     ArrayAdapter<String> titleArrayAdapter;
     ScrollView scrollView;
+    AlertDialog addContentAlertDialog;
 
     public void onFABClicked (View view) {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         builder.setView(R.layout.add_content_dialog);
-        builder.show();
+        addContentAlertDialog = builder.create();
+        addContentAlertDialog.show();
     }
 
     public void addManuallyClicked(View view) {
@@ -183,20 +186,26 @@ public class MainActivity extends AppCompatActivity {
                     // Handle result here
                     Intent data = result.getData();
                     if (data != null) {
-                        Toast.makeText(this, "Data not null", Toast.LENGTH_SHORT).show();
                         try {
                             int fileType = Methods.getFileType(this, data.getData());
+                            String fileExtension = "";
                             if (fileType == Constants.FILE_TYPE_PDF) {
-                                Toast.makeText(this, "File is a PDF", Toast.LENGTH_SHORT).show();
+                                fileExtension = "PDF";
                             } else if (fileType == Constants.FILE_TYPE_TXT) {
-                                Toast.makeText(this, "File is a TXT", Toast.LENGTH_SHORT).show();
+                                fileExtension = "TXT";
                             } else if (fileType == Constants.FILE_TYPE_UNKNOWN) {
-                                Toast.makeText(this, "File is unknown", Toast.LENGTH_SHORT).show();
+                                fileExtension = "Unknown";
                             }
+                            if (addContentAlertDialog != null) addContentAlertDialog.dismiss();
+                            Intent intent = new Intent(this, AddContentFileActivity.class);
+                            intent.putExtra(Constants.FILE_EXTENSION_INTENT_EXTRA, fileExtension);
+                            intent.putExtra(Constants.FILE_INTENT_EXTRA, data.getData());
+                            startActivity(intent);
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
                     } else {
+                        if (addContentAlertDialog != null) addContentAlertDialog.dismiss();
                         Toast.makeText(this, "Operation Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }

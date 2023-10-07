@@ -30,13 +30,13 @@
                     android:indeterminate="true" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/progressTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:text="Testing character limit, please wait" />
+                    android:text="Please wait" />
 
             </LinearLayout>
 
